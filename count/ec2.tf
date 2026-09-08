@@ -1,13 +1,13 @@
 # resource <resource-type> <resource-name>
 resource "aws_instance" "db" {
-
+    count=3
     ami = "ami-0220d79f3f480ecf5"
     vpc_security_group_ids = [aws_security_group.allow_ssh.id]
     instance_type = "t3.micro"
     associate_public_ip_address = false 
 
     tags = {
-        Name = var.instance_name == "db" ? "t3.micro" : "t3.small"
+        Name = var.instance_name[count.index]
     }
 }
 
